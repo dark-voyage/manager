@@ -1,4 +1,6 @@
 mod launch;
+mod api;
+
 use clap::{Parser, Subcommand};
 
 /// UwUssimo's Minecraft Server Manager
