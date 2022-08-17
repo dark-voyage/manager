@@ -1,9 +1,9 @@
-mod telegram;
 mod rcon;
+mod telegram;
 
 use crate::execute::{output, run};
-use telegram::Telegram;
 use rand::Rng;
+use telegram::Telegram;
 
 pub async fn upload(token: &str, chat_id: i64) {
     let session = output("git", vec!["status", "--porcelain"]).await;
@@ -31,7 +31,7 @@ pub async fn upload(token: &str, chat_id: i64) {
                 format!("Sync from local to remote {}", rng.gen::<u32>()).as_str(),
             ],
         )
-            .await;
+        .await;
     } else {
         println!("No changes found... Skipping!");
     }
