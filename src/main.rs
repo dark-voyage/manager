@@ -1,8 +1,8 @@
-mod launch;
-mod download;
-mod init;
 mod assets;
+mod download;
 mod execute;
+mod init;
+mod launch;
 
 use clap::{Parser, Subcommand};
 
@@ -31,7 +31,7 @@ enum Commands {
     Init,
 
     /// Manage the systemd service
-    Service
+    Service,
 }
 
 #[tokio::main]

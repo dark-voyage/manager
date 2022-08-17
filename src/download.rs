@@ -1,23 +1,28 @@
 #![allow(clippy::unused_io_amount)]
 
+use futures_util::StreamExt;
+use indicatif::{ProgressBar, ProgressStyle};
+use reqwest::Client;
 use std::cmp::min;
 use std::io::{Seek, Write};
-use reqwest::Client;
-use indicatif::{ProgressBar, ProgressStyle};
-use futures_util::StreamExt;
 
 pub async fn _download_v1(link: &str, output: &str) {
     let resp = reqwest::get(link).await.expect("request failed");
     let body = resp.text().await.expect("Can't convert body to bytes!");
-    let mut out = tokio::fs::File::create(output).await.expect("failed to create file");
-    tokio::io::copy(&mut body.as_bytes(), &mut out).await.expect("failed to copy content");
+    let mut out = tokio::fs::File::create(output)
+        .await
+        .expect("failed to create file");
+    tokio::io::copy(&mut body.as_bytes(), &mut out)
+        .await
+        .expect("failed to copy content");
 }
 
 pub async fn download_v2(client: &Client, url: &str, path: &str) -> Result<(), String> {
     let res = client
         .get(url)
         .send()
-        .await.map_err(|_| format!("Failed to GET from '{}'", &url))?;
+        .await
+        .map_err(|_| format!("Failed to GET from '{}'", &url))?;
     let total_size = res
         .content_length()
         .ok_or(format!("Failed to get content length from '{}'", &url))?;
@@ -46,16 +51,17 @@ pub async fn download_v2(client: &Client, url: &str, path: &str) -> Result<(), S
         let file_size = std::fs::metadata(path).unwrap().len();
         file.seek(std::io::SeekFrom::Start(file_size)).unwrap();
         downloaded = file_size;
-
     } else {
         println!("Fresh file..");
-        file = std::fs::File::create(path).map_err(|_| format!("Failed to create file '{}'", path))?;
+        file =
+            std::fs::File::create(path).map_err(|_| format!("Failed to create file '{}'", path))?;
     }
 
     println!("Commencing transfer");
     while let Some(item) = stream.next().await {
         let chunk = item.map_err(|_| "Error while downloading file".to_string())?;
-        file.write(&chunk).map_err(|_| "Error while writing to file".to_string())?;
+        file.write(&chunk)
+            .map_err(|_| "Error while writing to file".to_string())?;
         let new = min(downloaded + (chunk.len() as u64), total_size);
         downloaded = new;
         pb.set_position(new);
