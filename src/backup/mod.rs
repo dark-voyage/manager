@@ -1,5 +1,8 @@
+mod telegram;
+mod rcon;
+
 use crate::execute::{output, run};
-use crate::telegram::Telegram;
+use telegram::Telegram;
 use rand::Rng;
 
 pub async fn upload(token: &str, chat_id: i64) {
@@ -28,7 +31,7 @@ pub async fn upload(token: &str, chat_id: i64) {
                 format!("Sync from local to remote {}", rng.gen::<u32>()).as_str(),
             ],
         )
-        .await;
+            .await;
     } else {
         println!("No changes found... Skipping!");
     }

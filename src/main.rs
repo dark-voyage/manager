@@ -6,10 +6,10 @@ mod download;
 mod execute;
 mod init;
 mod launch;
-mod rcon;
-mod telegram;
 
 use clap::{Parser, Subcommand};
+
+const WIP: &str = "Oops, I forgot that this feature is still WIP";
 
 /// UwUssimo's Minecraft Server Manager
 #[derive(Debug, Parser)]
@@ -49,6 +49,7 @@ async fn main() {
     match args.command {
         Commands::Upgrade { version } => {
             println!("Upgrading minecraft server to {} version", version);
+            println!("{}", WIP);
         }
         Commands::Start => {
             println!("Starting the server");
@@ -58,7 +59,9 @@ async fn main() {
             println!("Initializing the server");
             init::bootstrap().await;
         }
-        Commands::Service => {}
+        Commands::Service => {
+            println!("{}", WIP);
+        }
         Commands::Backup => {
             println!("Backing up the assets");
             backup::upload(
