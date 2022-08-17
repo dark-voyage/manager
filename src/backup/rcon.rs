@@ -1,11 +1,13 @@
 use rcon_client::{AuthRequest, RCONClient, RCONConfig, RCONError, RCONRequest};
 
-pub async fn _send(address: &str, password: &str, cmd: &str) -> Result<(), RCONError> {
+pub async fn _send(address: Option<&str>, password: &str, cmd: &str) -> Result<(), RCONError> {
     let mut client = RCONClient::new(RCONConfig {
-        url: address.to_string(),
-        // Optional
-        read_timeout: Some(13),
-        write_timeout: Some(37),
+        url: match address {
+            None => "localhost:25575".to_string(),
+            Some(adr) => adr.to_string(),
+        },
+        read_timeout: None,
+        write_timeout: None,
     })?;
 
     let auth_result = client.auth(AuthRequest::new(password.to_string()))?;
