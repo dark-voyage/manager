@@ -2,6 +2,7 @@ mod launch;
 mod download;
 mod init;
 mod assets;
+mod execute;
 
 use clap::{Parser, Subcommand};
 
