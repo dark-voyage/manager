@@ -1,4 +1,4 @@
-use std::process::{Stdio};
+use std::process::Stdio;
 use tokio::io::{AsyncBufReadExt, BufReader};
 use tokio::process::Command;
 
@@ -57,12 +57,10 @@ pub async fn output(exec: &str, args: Vec<&str>) -> String {
     let child = Command::new(exec).args(args).output().await;
 
     match child {
-        Ok(output) => {
-            match std::str::from_utf8(&output.stdout) {
-                Ok(result) => result.to_string(),
-                Err(_) => panic!("Couldn't parse the output")
-            }
-        }
-        Err(_) => "".to_string()
+        Ok(output) => match std::str::from_utf8(&output.stdout) {
+            Ok(result) => result.to_string(),
+            Err(_) => panic!("Couldn't parse the output"),
+        },
+        Err(_) => "".to_string(),
     }
 }

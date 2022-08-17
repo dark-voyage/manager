@@ -1,11 +1,12 @@
 extern crate core;
 
 mod assets;
+mod backup;
 mod download;
 mod execute;
 mod init;
 mod launch;
-mod backup;
+mod rcon;
 
 use clap::{Parser, Subcommand};
 

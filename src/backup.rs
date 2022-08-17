@@ -1,11 +1,24 @@
-use crate::execute::output;
+use crate::execute::{output, run};
+use rand::Rng;
 
 pub async fn upload() {
     let session = output("git", vec!["status", "--porcelain"]).await;
 
     if !session.is_empty() {
-        println!("{}, {}", session, session.len());
+        println!("Found changes. Backing up!");
+        let mut rng = rand::thread_rng();
+
+        run("git", vec!["add", "."]).await;
+        run(
+            "git",
+            vec![
+                "commit",
+                "-m",
+                format!("Sync from local to remote {}", rng.gen::<u32>()).as_str(),
+            ],
+        )
+        .await
     } else {
-        println!("Sorry for that...");
+        println!("No changes found... Skipping!");
     }
 }
