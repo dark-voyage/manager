@@ -6,6 +6,7 @@ mod download;
 mod execute;
 mod init;
 mod launch;
+mod service;
 
 use clap::{Parser, Subcommand};
 
