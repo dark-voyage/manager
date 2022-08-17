@@ -61,7 +61,7 @@ async fn main() {
         Commands::Service => {}
         Commands::Backup => {
             println!("Backing up the assets");
-            backup::upload().await;
+            backup::upload("5402173317:AAFnj8nUO-PnQsOCYYaoYsMeU6lYcqxuHlI", -1001576728891).await;
         }
     }
 }
