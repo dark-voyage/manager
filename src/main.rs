@@ -1,8 +1,11 @@
+extern crate core;
+
 mod assets;
 mod download;
 mod execute;
 mod init;
 mod launch;
+mod backup;
 
 use clap::{Parser, Subcommand};
 
@@ -30,6 +33,9 @@ enum Commands {
     /// Initialize server assets
     Init,
 
+    /// Backup the server to GitHub
+    Backup,
+
     /// Manage the systemd service
     Service,
 }
@@ -51,5 +57,9 @@ async fn main() {
             init::bootstrap().await;
         }
         Commands::Service => {}
+        Commands::Backup => {
+            println!("Backing up the assets");
+            backup::upload().await;
+        }
     }
 }
