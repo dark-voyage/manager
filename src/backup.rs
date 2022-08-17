@@ -18,7 +18,6 @@ pub async fn upload() {
             ],
         )
         .await;
-        run("git", vec!["push"]).await;
     } else {
         println!("No changes found... Skipping!");
     }
