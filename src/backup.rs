@@ -17,7 +17,8 @@ pub async fn upload() {
                 format!("Sync from local to remote {}", rng.gen::<u32>()).as_str(),
             ],
         )
-        .await
+        .await;
+        run("git", vec!["push"]).await;
     } else {
         println!("No changes found... Skipping!");
     }
