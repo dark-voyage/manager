@@ -61,7 +61,19 @@ async fn main() {
         Commands::Service => {}
         Commands::Backup => {
             println!("Backing up the assets");
-            backup::upload("5402173317:AAFnj8nUO-PnQsOCYYaoYsMeU6lYcqxuHlI", -1001576728891).await;
+            backup::upload(
+                match std::env::var("UWU_BOT_TOKEN") {
+                    Ok(v) => v,
+                    Err(_) => "".to_string()
+                }.as_str(),
+                match std::env::var("UWU_CHAT_ID") {
+                    Ok(v) => v,
+                    Err(_) => "-1001576728891".to_string(),
+                }
+                .parse()
+                .unwrap(),
+            )
+            .await;
         }
     }
 }
