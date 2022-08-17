@@ -1,6 +1,6 @@
 use rcon_client::{AuthRequest, RCONClient, RCONConfig, RCONError, RCONRequest};
 
-pub async fn send(address: &str, password: &str, cmd: &str) -> Result<(), RCONError> {
+pub async fn _send(address: &str, password: &str, cmd: &str) -> Result<(), RCONError> {
     let mut client = RCONClient::new(RCONConfig {
         url: address.to_string(),
         // Optional

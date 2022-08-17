@@ -7,6 +7,7 @@ mod execute;
 mod init;
 mod launch;
 mod rcon;
+mod telegram;
 
 use clap::{Parser, Subcommand};
 
