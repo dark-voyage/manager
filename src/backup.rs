@@ -2,17 +2,17 @@ use crate::execute::{output, run};
 use crate::telegram::Telegram;
 use rand::Rng;
 
-pub async fn upload() {
+pub async fn upload(token: &str, chat_id: i64) {
     let session = output("git", vec!["status", "--porcelain"]).await;
 
     if !session.is_empty() {
-        let client = Telegram::new("5402173317:AAFnj8nUO-PnQsOCYYaoYsMeU6lYcqxuHlI");
+        let client = Telegram::new(token);
 
         println!("Sending notification to Telegram Chat");
         client
             .send(
-                756870298,
-                "We are backing up our system! It may take some time...",
+                chat_id,
+                "<b>⚠️ Attention to all players!</b>\nWe are backing up our system! It may take some time...",
             )
             .await;
 
