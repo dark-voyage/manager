@@ -64,8 +64,9 @@ async fn main() {
             backup::upload(
                 match std::env::var("UWU_BOT_TOKEN") {
                     Ok(v) => v,
-                    Err(_) => "".to_string()
-                }.as_str(),
+                    Err(_) => "".to_string(),
+                }
+                .as_str(),
                 match std::env::var("UWU_CHAT_ID") {
                     Ok(v) => v,
                     Err(_) => "-1001576728891".to_string(),
