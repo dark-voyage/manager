@@ -13,4 +13,10 @@ Cargo.lock
 # Added by cargo
 
 /target
+
+# IDEA configs
 .idea
+
+# Minecraft server
+server.jar
+

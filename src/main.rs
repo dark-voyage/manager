@@ -1,5 +1,7 @@
 mod launch;
-mod api;
+mod download;
+mod init;
+mod assets;
 
 use clap::{Parser, Subcommand};
 
@@ -23,7 +25,12 @@ enum Commands {
     },
     /// Start the minecraft server
     Start,
+
+    /// Initialize server assets
     Init,
+
+    /// Manage the systemd service
+    Service
 }
 
 #[tokio::main]
@@ -39,7 +46,9 @@ async fn main() {
             launch::start().await;
         }
         Commands::Init => {
-            println!("Initializing the server")
+            println!("Initializing the server");
+            init::bootstrap().await;
         }
+        Commands::Service => {}
     }
 }
