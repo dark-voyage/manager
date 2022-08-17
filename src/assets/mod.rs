@@ -1,2 +1,2 @@
 pub mod constants;
-pub const PROPERTIES: &str = include_str!("server.properties");
+pub const _PROPERTIES: &str = include_str!("server.properties");

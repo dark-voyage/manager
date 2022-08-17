@@ -1,6 +1,6 @@
-pub fn template() {
+pub fn _template() {
     let exec_path = std::env::current_exe().expect("Couldn't find the executable's path");
-    let service_output = format!(
+    let _service_output = format!(
         r#"[Unit]
 Description=UwUssimo Minecraft Server
 After=network.target
