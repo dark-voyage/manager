@@ -9,6 +9,7 @@ pub async fn upload(token: &str, chat_id: i64) {
     let session = output("git", vec!["status", "--porcelain"]).await;
 
     if !session.is_empty() {
+        println!("Found changes. Backing up!");
         let client = Telegram::new(token);
 
         println!("Sending notification to Telegram Chat");
@@ -19,9 +20,13 @@ pub async fn upload(token: &str, chat_id: i64) {
             )
             .await;
 
-        println!("Found changes. Backing up!");
+        // Creating rand instance
         let mut rng = rand::thread_rng();
 
+        // Stop the server
+        run("sudo", vec!["systemctl", "stop", "minecraft.service"]).await;
+
+        // Start backing process
         run("git", vec!["add", "."]).await;
         run(
             "git",
